@@ -308,10 +308,10 @@ func (e *State) union(a, b *Results, expression string) []*Union {
 			delete(am, ra)
 			delete(bm, rb)
 			u := &Union{
-				A: ra.Value,
-				B: rb.Value,
+				A:     ra.Value,
+				B:     rb.Value,
+				Group: group,
 			}
-			u.Group = group
 			u.ExtendComputations(ra)
 			u.ExtendComputations(rb)
 			us = append(us, u)

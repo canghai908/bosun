@@ -1,10 +1,11 @@
 package expr
 
 import (
-	"bosun.org/opentsdb"
 	"fmt"
 	"math/rand"
 	"testing"
+
+	"bosun.org/opentsdb"
 )
 
 func TestSlowUnion(t *testing.T) {
