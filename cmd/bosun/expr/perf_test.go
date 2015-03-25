@@ -33,11 +33,11 @@ func buildFakeResults() (ra, rb *Results) {
 }
 
 func BenchmarkSlowUnion(b *testing.B) {
+	e := State{}
+	e.unjoinedOk = true
 	ra, rb := buildFakeResults()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		e := State{}
-		e.unjoinedOk = true
 		e.union(ra, rb, "")
 	}
 }
