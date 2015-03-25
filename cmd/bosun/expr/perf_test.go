@@ -2,7 +2,6 @@ package expr
 
 import (
 	"fmt"
-	"math/rand"
 	"testing"
 
 	"bosun.org/opentsdb"
@@ -21,17 +20,15 @@ func TestSlowUnion(t *testing.T) {
 func buildFakeResults() (ra, rb *Results) {
 	ra = &Results{}
 	rb = &Results{}
-	rand.Seed(42)
 	for i := 0; i < 50000; i++ {
 		tags := opentsdb.TagSet{}
 		tags["disk"] = fmt.Sprint("a%d", i)
 		tags["host"] = fmt.Sprint("b%d", i)
 		if i < 1000 {
-			ra.Results = append(ra.Results, &Result{Value: Number(rand.Int63()), Group: tags})
+			ra.Results = append(ra.Results, &Result{Value: Number(0), Group: tags})
 		}
-		rb.Results = append(ra.Results, &Result{Value: Number(rand.Int63()), Group: tags})
+		rb.Results = append(ra.Results, &Result{Value: Number(0), Group: tags})
 	}
-	rb.Results = rb.Results.DescByValue()
 	return ra, rb
 }
 
