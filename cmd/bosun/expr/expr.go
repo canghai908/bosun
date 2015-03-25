@@ -278,8 +278,8 @@ func (e *State) union(a, b *Results, expression string) []*Union {
 	if len(a.Results) == 0 || len(b.Results) == 0 {
 		return us
 	}
-	am := make(map[*Result]bool)
-	bm := make(map[*Result]bool)
+	am := make(map[*Result]bool, len(a.Results))
+	bm := make(map[*Result]bool, len(b.Results))
 	for _, ra := range a.Results {
 		am[ra] = true
 	}
