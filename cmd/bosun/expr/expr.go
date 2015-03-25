@@ -296,6 +296,8 @@ func (e *State) union(a, b *Results, expression string) []*Union {
 					g = rb.Group
 				}
 				group = g
+			} else if len(ra.Group) == len(rb.Group) {
+				continue
 			} else if ra.Group.Subset(rb.Group) {
 				group = ra.Group
 			} else if rb.Group.Subset(ra.Group) {
