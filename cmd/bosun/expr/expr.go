@@ -286,27 +286,30 @@ func (e *State) union(a, b *Results, expression string) []*Union {
 	for _, rb := range b.Results {
 		bm[rb] = true
 	}
+	var group opentsdb.TagSet
 	for _, ra := range a.Results {
 		for _, rb := range b.Results {
-			u := &Union{
-				A: ra.Value,
-				B: rb.Value,
-			}
+
 			if ra.Group.Equal(rb.Group) || len(ra.Group) == 0 || len(rb.Group) == 0 {
 				g := ra.Group
 				if len(ra.Group) == 0 {
 					g = rb.Group
 				}
-				u.Group = g
+				group = g
 			} else if ra.Group.Subset(rb.Group) {
-				u.Group = ra.Group
+				group = ra.Group
 			} else if rb.Group.Subset(ra.Group) {
-				u.Group = rb.Group
+				group = rb.Group
 			} else {
 				continue
 			}
 			delete(am, ra)
 			delete(bm, rb)
+			u := &Union{
+				A: ra.Value,
+				B: rb.Value,
+			}
+			u.Group = group
 			u.ExtendComputations(ra)
 			u.ExtendComputations(rb)
 			us = append(us, u)
